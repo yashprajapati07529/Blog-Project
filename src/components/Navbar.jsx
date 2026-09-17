@@ -1,81 +1,159 @@
+
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import blogLogo from "../assets/blog-logo.png";
 
 const Navbar = () => {
+    const [menuOpen, setMenuOpen] = useState(false);
+
     return (
-        <div>
-            <nav className="bg-neutral-primary fixed w-full z-20 top-0 start-0 border-b border-default sticky top-0 z-50 bg-white">
-                <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                    <a className="flex items-center space-x-3 rtl:space-x-reverse">
+        <nav className="sticky top-0 z-50 bg-white border-b border-gray-200">
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                {/* Navbar */}
+                <div className="h-16 flex items-center justify-between">
+
+                    {/* Logo */}
+                    <NavLink
+                        to="/"
+                        onClick={() => setMenuOpen(false)}
+                        className="flex items-center gap-2"
+                    >
                         <img
                             src={blogLogo}
-                            className="h-9 w-9 rounded-full object-cover"
                             alt="Blog Logo"
+                            className="w-9 h-9 rounded-full object-cover"
                         />
-                        <span className="self-center text-xl text-heading font-semibold whitespace-nowrap">
-                            Blog
+
+                        <span className="text-xl font-bold text-gray-800">
+                            My Blog
                         </span>
-                    </a>
-                    <button
-                        data-collapse-toggle="navbar-default"
-                        type="button"
-                        className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-body rounded-base md:hidden hover:bg-neutral-secondary-soft hover:text-heading focus:outline-none focus:ring-2 focus:ring-neutral-tertiary"
-                        aria-controls="navbar-default"
-                        aria-expanded="false"
-                    >
-                        <span className="sr-only">Open main menu</span>
-                        <svg
-                            className="w-6 h-6"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            width={24}
-                            height={24}
-                            fill="none"
-                            viewBox="0 0 24 24"
+                    </NavLink>
+
+
+                    {/* Desktop Menu */}
+                    <div className="hidden md:flex items-center gap-6">
+
+                        <NavLink
+                            to="/"
+                            className={({ isActive }) =>
+                                isActive
+                                    ? "text-blue-600 font-semibold"
+                                    : "text-gray-600 hover:text-blue-600"
+                            }
                         >
-                            <path
-                                stroke="currentColor"
-                                strokeLinecap="round"
-                                strokeWidth={2}
-                                d="M5 7h14M5 12h14M5 17h14"
-                            />
-                        </svg>
-                    </button>
-                    <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-                        <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-default rounded-base bg-neutral-secondary-soft md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-neutral-primary">
-                            <li>
-                                <NavLink
-                                    to="/"
-                                    className="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent"
-                                    aria-current="page"
-                                >
-                                    Home
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink
-                                    to="/blogs"
-                                    className="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent"
-                                >
-                                    Blog
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink
-                                    to="/add-blog"
-                                    className="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent"
-                                >
-                                    Add Blog
-                                </NavLink>
-                            </li>
-                        </ul>
+                            Home
+                        </NavLink>
+
+                        <NavLink
+                            to="/blogs"
+                            className={({ isActive }) =>
+                                isActive
+                                    ? "text-blue-600 font-semibold"
+                                    : "text-gray-600 hover:text-blue-600"
+                            }
+                        >
+                            Blogs
+                        </NavLink>
+
+                        <NavLink
+                            to="/add-blog"
+                            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                        >
+                            Add Blog
+                        </NavLink>
+
                     </div>
+
+
+                    {/* Mobile Button */}
+                    <button
+                        onClick={() => setMenuOpen(!menuOpen)}
+                        className="md:hidden p-2 text-gray-600 border border-gray-200 rounded-lg"
+                    >
+                        {menuOpen ? (
+                            <svg
+                                className="w-6 h-6"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M6 18L18 6M6 6l12 12"
+                                />
+                            </svg>
+                        ) : (
+                            <svg
+                                className="w-6 h-6"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M4 6h16M4 12h16M4 18h16"
+                                />
+                            </svg>
+                        )}
+                    </button>
+
                 </div>
-            </nav>
 
-        </div>
 
+                {/* Mobile Menu */}
+                {menuOpen && (
+                    <div className="md:hidden border-t border-gray-200 py-3">
+
+                        <div className="flex flex-col gap-1">
+
+                            <NavLink
+                                to="/"
+                                onClick={() => setMenuOpen(false)}
+                                className={({ isActive }) =>
+                                    isActive
+                                        ? "px-3 py-2 rounded-md bg-blue-50 text-blue-600 font-semibold"
+                                        : "px-3 py-2 rounded-md text-gray-600 hover:bg-gray-50"
+                                }
+                            >
+                                Home
+                            </NavLink>
+
+                            <NavLink
+                                to="/blogs"
+                                onClick={() => setMenuOpen(false)}
+                                className={({ isActive }) =>
+                                    isActive
+                                        ? "px-3 py-2 rounded-md bg-blue-50 text-blue-600 font-semibold"
+                                        : "px-3 py-2 rounded-md text-gray-600 hover:bg-gray-50"
+                                }
+                            >
+                                Blogs
+                            </NavLink>
+
+                            <NavLink
+                                to="/add-blog"
+                                onClick={() => setMenuOpen(false)}
+                                className="mt-1 px-3 py-2 bg-blue-600 text-white text-center rounded-lg hover:bg-blue-700"
+                            >
+                                +Add Blog
+                            </NavLink>
+
+                        </div>
+
+                    </div>
+                )}
+
+            </div>
+
+        </nav>
     );
 };
 
 export default Navbar;
+

@@ -1,9 +1,10 @@
+
 import { useEffect, useState } from "react";
 
 const BlogForm = ({
     initialData,
     onSubmit,
-    submitText
+    submitText = "Publish Blog"
 }) => {
 
     const [formData, setFormData] = useState({
@@ -14,34 +15,46 @@ const BlogForm = ({
         author: ""
     });
 
+    // Edit Blog ke time old data form me show hoga
     useEffect(() => {
 
         if (initialData) {
-            setFormData(initialData);
+            setFormData({
+                title: initialData.title || "",
+                category: initialData.category || "",
+                description: initialData.description || "",
+                content: initialData.content || "",
+                author: initialData.author || ""
+            });
         }
 
     }, [initialData]);
 
+
+    // Input Change
     const handleChange = (e) => {
 
         const { name, value } = e.target;
 
-        setFormData({
-            ...formData,
+        setFormData((prev) => ({
+            ...prev,
             [name]: value
-        });
+        }));
+
     };
 
+
+    // Form Submit
     const handleSubmit = (e) => {
 
         e.preventDefault();
 
         if (
-            !formData.title ||
+            !formData.title.trim() ||
             !formData.category ||
-            !formData.description ||
-            !formData.content ||
-            !formData.author
+            !formData.description.trim() ||
+            !formData.content.trim() ||
+            !formData.author.trim()
         ) {
             alert("Please fill all fields");
             return;
@@ -51,46 +64,45 @@ const BlogForm = ({
 
     };
 
+
     return (
-        <div className="min-h-screen bg-gray-50 px-4 py-10">
-            <form
-                onSubmit={handleSubmit}
-                className="max-w-3xl mx-auto p-6 sm:p-8 bg-white border border-gray-200 rounded-2xl shadow-sm"
-            >
+        <form
+            onSubmit={handleSubmit}
+            className="space-y-6"
+        >
 
-                <div className="mb-8">
-                    <h2 className="text-2xl font-bold text-gray-900">
-                        Create New Blog
-                    </h2>
+            {/* ================= BLOG TITLE ================= */}
+            <div>
 
-                    <p className="mt-2 text-sm text-gray-500">
-                        Create and publish your blog with useful information.
-                    </p>
-                </div>
+                <label
+                    htmlFor="title"
+                    className="block mb-2 text-sm font-semibold text-gray-800"
+                >
+                    Blog Title
+                </label>
 
-                <div className="mb-6">
-                    <label
-                        htmlFor="title"
-                        className="block mb-2 text-sm font-medium text-gray-900"
-                    >
-                        Blog Title
-                    </label>
+                <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    value={formData.title}
+                    onChange={handleChange}
+                    placeholder="Enter your blog title"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-white text-gray-900 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                />
 
-                    <input
-                        type="text"
-                        id="title"
-                        name="title"
-                        value={formData.title}
-                        onChange={handleChange}
-                        placeholder="Enter blog title"
-                        className="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm text-gray-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-                    />
-                </div>
+            </div>
 
-                <div className="mb-6">
+
+            {/* ================= CATEGORY + AUTHOR ================= */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                {/* Category */}
+                <div>
+
                     <label
                         htmlFor="category"
-                        className="block mb-2 text-sm font-medium text-gray-900"
+                        className="block mb-2 text-sm font-semibold text-gray-800"
                     >
                         Category
                     </label>
@@ -100,8 +112,9 @@ const BlogForm = ({
                         name="category"
                         value={formData.category}
                         onChange={handleChange}
-                        className="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm text-gray-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                        className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-white text-gray-900 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
                     >
+
                         <option value="">
                             Select Category
                         </option>
@@ -129,51 +142,18 @@ const BlogForm = ({
                         <option value="Web Development">
                             Web Development
                         </option>
+
                     </select>
+
                 </div>
 
-                <div className="mb-6">
-                    <label
-                        htmlFor="description"
-                        className="block mb-2 text-sm font-medium text-gray-900"
-                    >
-                        Description
-                    </label>
 
-                    <textarea
-                        id="description"
-                        name="description"
-                        value={formData.description}
-                        onChange={handleChange}
-                        placeholder="Enter short description"
-                        rows="4"
-                        className="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm text-gray-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 resize-none"
-                    />
-                </div>
+                {/* Author */}
+                <div>
 
-                <div className="mb-6">
-                    <label
-                        htmlFor="content"
-                        className="block mb-2 text-sm font-medium text-gray-900"
-                    >
-                        Blog Content
-                    </label>
-
-                    <textarea
-                        id="content"
-                        name="content"
-                        value={formData.content}
-                        onChange={handleChange}
-                        placeholder="Write your blog content..."
-                        rows="10"
-                        className="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm text-gray-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 resize-y"
-                    />
-                </div>
-
-                <div className="mb-8">
                     <label
                         htmlFor="author"
-                        className="block mb-2 text-sm font-medium text-gray-900"
+                        className="block mb-2 text-sm font-semibold text-gray-800"
                     >
                         Author
                     </label>
@@ -185,18 +165,81 @@ const BlogForm = ({
                         value={formData.author}
                         onChange={handleChange}
                         placeholder="Enter author name"
-                        className="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm text-gray-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                        className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-white text-gray-900 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
                     />
+
                 </div>
+
+            </div>
+
+
+            {/* ================= DESCRIPTION ================= */}
+            <div>
+
+                <label
+                    htmlFor="description"
+                    className="block mb-2 text-sm font-semibold text-gray-800"
+                >
+                    Short Description
+                </label>
+
+                <textarea
+                    id="description"
+                    name="description"
+                    value={formData.description}
+                    onChange={handleChange}
+                    placeholder="Write a short description about your blog..."
+                    rows="4"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-white text-gray-900 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100 resize-none"
+                />
+
+                <p className="mt-1 text-xs text-gray-400">
+                    Keep your description short and meaningful.
+                </p>
+
+            </div>
+
+
+            {/* ================= BLOG CONTENT ================= */}
+            <div>
+
+                <label
+                    htmlFor="content"
+                    className="block mb-2 text-sm font-semibold text-gray-800"
+                >
+                    Blog Content
+                </label>
+
+                <textarea
+                    id="content"
+                    name="content"
+                    value={formData.content}
+                    onChange={handleChange}
+                    placeholder="Write your complete blog content here..."
+                    rows="10"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-white text-gray-900 text-sm leading-6 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100 resize-y"
+                />
+
+                <p className="mt-1 text-xs text-gray-400">
+                    Write the complete content that you want to publish.
+                </p>
+
+            </div>
+
+
+            {/* ================= BUTTON ================= */}
+            <div className="pt-4 border-t border-gray-200">
 
                 <button
                     type="submit"
-                    className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition duration-200"
+                    className="w-full sm:w-auto px-7 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-200 transition duration-200"
                 >
                     {submitText}
                 </button>
-            </form>
-        </div>
+
+            </div>
+
+        </form>
     );
 };
 
