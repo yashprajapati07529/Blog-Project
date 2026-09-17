@@ -43,7 +43,7 @@ const AddBlog = () => {
 
             <div className="max-w-3xl mx-auto">
 
-                {/* Header */}
+           
                 <div className=" bg-gray-50 px-4 py-10">
 
                     <span className="inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700 mb-3">
@@ -61,7 +61,7 @@ const AddBlog = () => {
                 </div>
 
 
-                {/* Form */}
+         
                 <BlogForm
                     onSubmit={handleAdd}
                     submitText="ADD BLOG"

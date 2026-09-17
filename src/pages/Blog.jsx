@@ -80,7 +80,7 @@ const Blogs = () => {
     return (
         <div className="min-h-screen bg-gray-50 px-4 py-8 sm:px-6 lg:px-8">
 
-            {/* Page Header */}
+          
             <div className="max-w-6xl mx-auto mb-6">
 
                 <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
@@ -94,7 +94,7 @@ const Blogs = () => {
             </div>
 
 
-            {/* Search & Category */}
+       
             <div className="max-w-6xl mx-auto mb-6">
 
                 <div className="flex flex-col sm:flex-row gap-3">
@@ -113,7 +113,7 @@ const Blogs = () => {
                     </div>
 
 
-                    {/* Category */}
+                   
                     <select
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
@@ -136,12 +136,12 @@ const Blogs = () => {
             </div>
 
 
-            {/* Blog List */}
+        
             <div className="max-w-6xl mx-auto">
 
                 {filteredBlogs.length === 0 ? (
 
-                    /* Empty Message */
+              
                     <div className="bg-white border border-gray-200 rounded-xl p-8 text-center shadow-sm">
 
                         <h2 className="text-xl font-semibold text-gray-900">
@@ -156,7 +156,7 @@ const Blogs = () => {
 
                 ) : (
 
-                    /* Blog Cards */
+                  
                     <div className="space-y-4">
 
                         {filteredBlogs.map((blog) => (

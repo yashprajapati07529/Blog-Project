@@ -57,7 +57,7 @@ const BlogForm = ({
                 onSubmit={handleSubmit}
                 className="max-w-3xl mx-auto p-6 sm:p-8 bg-white border border-gray-200 rounded-2xl shadow-sm"
             >
-                {/* Form Header */}
+
                 <div className="mb-8">
                     <h2 className="text-2xl font-bold text-gray-900">
                         Create New Blog
@@ -68,7 +68,6 @@ const BlogForm = ({
                     </p>
                 </div>
 
-                {/* Blog Title */}
                 <div className="mb-6">
                     <label
                         htmlFor="title"
@@ -88,7 +87,6 @@ const BlogForm = ({
                     />
                 </div>
 
-                {/* Category */}
                 <div className="mb-6">
                     <label
                         htmlFor="category"
@@ -134,7 +132,6 @@ const BlogForm = ({
                     </select>
                 </div>
 
-                {/* Description */}
                 <div className="mb-6">
                     <label
                         htmlFor="description"
@@ -154,7 +151,6 @@ const BlogForm = ({
                     />
                 </div>
 
-                {/* Blog Content */}
                 <div className="mb-6">
                     <label
                         htmlFor="content"
@@ -174,7 +170,6 @@ const BlogForm = ({
                     />
                 </div>
 
-                {/* Author */}
                 <div className="mb-8">
                     <label
                         htmlFor="author"
@@ -194,7 +189,6 @@ const BlogForm = ({
                     />
                 </div>
 
-                {/* Submit Button */}
                 <button
                     type="submit"
                     className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition duration-200"

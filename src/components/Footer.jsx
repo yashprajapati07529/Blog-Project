@@ -6,7 +6,6 @@ const Footer = () => {
 
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
 
-                    {/* Copyright */}
                     <p className="text-sm text-gray-500 text-center sm:text-left">
                         © 2026{" "}
                         <span className="font-semibold text-gray-800">
@@ -16,7 +15,6 @@ const Footer = () => {
                     </p>
 
 
-                    {/* Built With */}
                     <p className="text-sm text-gray-500 text-center">
                         Built with{" "}
                         <span className="font-semibold text-blue-600">
